@@ -22,14 +22,6 @@ ul {
     margin-top: 0;
 }
 
-/* .hidden {
-    visibility: hidden;
-} */
-
-.visible {
-    visibility: visible;
-}
-
 li {
     list-style: none;
 }
