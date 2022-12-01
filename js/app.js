@@ -12,7 +12,7 @@ function ready () {
     let words = httpRequest.response.split("\r\n");
     input.addEventListener("input", () => {
         console.log(true);
-        recherche(words);
+        debounce(recherche, words);
     });
 }
 
@@ -21,7 +21,6 @@ function recherche (words) {
     ul.classList.remove("visible");
     ul.classList.add("hidden");
     let filtre = words.filter(el => el.startsWith(input.value)).slice(0, 10);
-    console.log(filtre);
     if (input.value.length >= 3) {
         for (let i = 0; i < filtre.length; i++) {
             ul.classList.remove("hidden");
@@ -31,10 +30,19 @@ function recherche (words) {
 
             new_li.addEventListener("click", () => {
                 input.value = filtre[i];
-                recherche(words);
+                debounce(recherche, words);
             });
-            
+
             new_li.textContent = filtre[i];
         }
     }
+}
+
+function debounce (func, param) {
+    const time = setTimeout(() => {
+        func(param);
+    }, 500);
+    input.addEventListener("input", () => {
+        clearTimeout(time);
+    });
 }
